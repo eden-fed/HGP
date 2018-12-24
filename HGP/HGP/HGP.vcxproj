@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F3AC2998-29F9-4455-BDE8-F922554AA2EF}</ProjectGuid>
+    <RootNamespace>hgp</RootNamespace>
+    <ProjectName>HGP</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.;$(SolutionDir);$(SolutionDir)\..;$(BOOST_64_DIR);$(CGAL_64_DIR)\include;$(CGAL_64_DIR)\auxiliary\gmp\include;$(GMM_INCLUDE_DIR);$(MATLAB_64_DIR)\extern\include;$(EIGEN_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_SECURE_SCL=0;_SECURE_SCL_THROWS=0;_SECURE_SCL_DEPRECATE=0;_SCL_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(BOOST_64_DIR)\lib;$(CGAL_64_DIR)\lib;$(CGAL_64_DIR)\auxiliary\gmp\lib;$(MATLAB_64_DIR)\extern\lib\win64\microsoft;$(PARDISO_BIN);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmx.lib;libeng.lib;libmat.lib;libgmp-10.lib;libmpfr-4.lib;libpardiso600-WIN-X86-64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.;$(SolutionDir);$(SolutionDir)\..;$(BOOST_64_DIR);$(CGAL_64_DIR)\include;$(CGAL_64_DIR)\auxiliary\gmp\include;$(GMM_INCLUDE_DIR);$(MATLAB_64_DIR)\extern\include;$(EIGEN_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;NT_PLUGIN;_HAS_ITERATOR_DEBUGGING=0;_SECURE_SCL=0;_SECURE_SCL_THROWS=0;_SECURE_SCL_DEPRECATE=0;_SCL_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;TBB_USE_DEBUG=0;__TBB_LIB_NAME=tbb.lib;REQUIRE_IOSTREAM;AW_NEW_IOSTREAMS;Bits64_;CGAL_NO_AUTOLINK_MPFR;CGAL_NO_AUTOLINK_GMP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <StringPooling>true</StringPooling>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(BOOST_64_DIR)\lib;$(CGAL_64_DIR)\lib;$(CGAL_64_DIR)\auxiliary\gmp\lib;$(MATLAB_64_DIR)\extern\lib\win64\microsoft;$(PARDISO_BIN);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmx.lib;libeng.lib;libmat.lib;libgmp-10.lib;libmpfr-4.lib;libpardiso600-WIN-X86-64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CGAL\CGAL_Face.h" />
+    <ClInclude Include="..\CGAL\CGAL_Halfedge.h" />
+    <ClInclude Include="..\CGAL\CGAL_Macros.h" />
+    <ClInclude Include="..\CGAL\CGAL_Mesh.h" />
+    <ClInclude Include="..\CGAL\CGAL_Vertex.h" />
+    <ClInclude Include="..\Parser\Cone.h" />
+    <ClInclude Include="..\Parser\MeshBuffer.h" />
+    <ClInclude Include="..\Parser\Parser.h" />
+    <ClInclude Include="..\Parser\Seam.h" />
+    <ClInclude Include="..\Parser\Vec2.h" />
+    <ClInclude Include="..\Parser\Vec3.h" />
+    <ClInclude Include="..\Utils\GMM_Macros.h" />
+    <ClInclude Include="..\Utils\Limit_Util.h" />
+    <ClInclude Include="..\Utils\MatlabGMMDataExchange.h" />
+    <ClInclude Include="..\Utils\MatlabInterface.h" />
+    <ClInclude Include="..\Utils\pardiso.h" />
+    <ClInclude Include="..\Utils\PardisoLinearSolver.h" />
+    <ClInclude Include="Borders.h" />
+    <ClInclude Include="FrameFixingClass.h" />
+    <ClInclude Include="FastHGP.h" />
+    <ClInclude Include="HGP.h" />
+    <ClInclude Include="HarmonicParametrization.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Parser\Cone.cpp" />
+    <ClCompile Include="..\Parser\MeshBuffer.cpp" />
+    <ClCompile Include="..\Parser\Parser.cpp" />
+    <ClCompile Include="..\Parser\Seam.cpp" />
+    <ClCompile Include="..\Parser\Vec2.cpp" />
+    <ClCompile Include="..\Parser\Vec3.cpp" />
+    <ClCompile Include="..\Utils\Limit_Util.cpp" />
+    <ClCompile Include="..\Utils\MatlabGMMDataExchange.cpp" />
+    <ClCompile Include="..\Utils\MatlabInterface.cpp" />
+    <ClCompile Include="..\Utils\PardisoLinearSolver.cpp" />
+    <ClCompile Include="Borders.cpp" />
+    <ClCompile Include="FrameFixingClass.cpp" />
+    <ClCompile Include="FastHGP.cpp" />
+    <ClCompile Include="HGP.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="HarmonicParametrization.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -72,32 +72,37 @@ OMP_NUM_THREADS  	number of cores in your CPU (for PARDISO)
 
 ** The lib files of Boost should be located at (%BOOST_64_DIR%)\lib **
 
-3) The code tries to automatically add the subfolder "MatlabScripts" and it's subfolders to your Matlab path, but it's recommended you verify its success and add it manually upon failure.
+3) Add the the folder "MatlabScripts" and its subfolders to your Matlab path.
 
-4) There are two types of possible inputs: 
+4) Make sure all the required dlls can be loacted by including the relevant paths into the system PATH variable. For example: PATH=%MATLAB_64_DIR%\bin\win64;%BOOST_64_DIR%\lib;%CGAL_64_DIR%\bin;%MOSEK_DIR%\tools\platform\win64x86\bin;%PARDISO_BIN%
+
+5)	Execute HGP.exe.
+	This should invoke Matlab and open a dialog box.
+	There are two types of possible inputs: 
     
-    4.1) models with cones - seamless parametrization 
+    5.1) models with cones - seamless parametrization 
          both HGP and FastHGP methods may be used for this type of parametrization.
          HGP sould work for any genus and number of boundaries, FastHGP code only works for genus 0 with up to 1 boundary models for now.
          
-        4.1.1) To parametrise models with cones the algorithms requires a prescription of holonomies for the required cone metric.
+        5.1.1) To parametrise models with cones the algorithms requires a prescription of holonomies for the required cone metric.
         The code assumes that the obj files which are used as input, support an extended format that includes the cone singularities (vertex index and cone angles), as well as a cut graph that converts the model to a topological disk. The cut graph passes through all cones and homology generators and includes a rotation between the two twin halfedges for every edge on the cut graph. The current version of the code assumes that the holonomy angles in the obj files are multiples of pi/2 though the algorithm and the underlying theory is applicable to any rational holonomy (see the paper for more details).
 
-        4.1.2) The "models" folder contains several such obj files as well as a corresponding frame field, which is needed to define the convexified subspace.
+        5.1.2) The "models" folder contains several such obj files as well as a corresponding frame field file (.ffield extension), which is needed to define the convexified subspace.
         The frame field files were contributed by Dr. Zohar Levi and were computed using the Mixed-Integer Quadrangulation method [Bommes et al. 2009].
 
-        4.1.3) Another option to define the convexified subspace, is to provide a MATLAB file (.mat), with an array named 'frames' in the size of #triangles X 1, which contains the frame for each triangle.
+        5.1.3) Another option to define the convexified subspace, is to provide a MATLAB file (.mat), with an array named 'frames' in the size of #triangles X 1, which contains the frame for each triangle.
         Please note: The gradients in the entire code are calculated corresponding to an orthogonal local basis for each triangle, such that for vertices v1, v2, v3 : v1 is the origin, the x axis is in the direction of (v2-v1), and the y axis is in the direction of (n X x), where n is the normal of the triangle. (as in figure 5.9 of the book: Polygon mesh processing / Mario Botsch ... [et al.].).
         please make sure that the provided frames file correspond to the same coordinate system, as otherwise the code won't work.
 
-        4.1.4) The following link (http://www.eng.biu.ac.il/~weberof/Publications/HGP/HGP_Results.zip) contains a large collection of obj models on which the algorithms was applied.
+        5.1.4) The following link (http://www.eng.biu.ac.il/~weberof/Publications/HGP/HGP_Results.zip) contains a large collection of obj models on which the algorithms was applied.
         These obj files also includes the parameterizations that were computed using the HGP algorithm.
 
-    4.2) disk models without cones - free boundary (only FastHGP parameterises this type)
+    5.2) disk models without cones - free boundary parameterization (only FastHGP can be applied)
     
-        4.2.1) For this type of models no special obj file is required, it would work for any disk model (including holes).
+        5.2.1) For this type of models we assume that a standard obj file is provided (as opposed to the one with cones and holonomies).
+		FastHGP can be applied to any disk-like mesh (including a disk with multiple holes).
         
-        4.2.1) Also, no need for frame field of frames file for these models.
+        5.2.2) When providing a standard obj file (without cones) and working in this mode of operation, there is no need to provide a .ffield file (frame field) and the user should delete the .ffield file name that automatically appears in the Matlab dialog box in order to indicate that.
         
         
         

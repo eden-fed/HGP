@@ -112,38 +112,33 @@ bool FastHGP::loadMesh(std::string& objpath, std::string& vfPath)
 	createCGALmeshTimer.stop();
 	std::cout << "Time to create CGAL mesh: " << createCGALmeshTimer.time() << " seconds.\n";
 
-	mHasCones = true;
+	mHasCones = mMeshBuffer.cones.size() > 0;
 
-	// -----load vector field or mat file with frames-------
-	const std::string ffieldPostfix = ".ffield";
-	const std::string matPostfix = ".mat";
+	if (mHasCones) {
+		// -----load vector field or mat file with frames-------
+		const std::string ffieldPostfix = ".ffield";
+		const std::string matPostfix = ".mat";
+		bool hasFrames = false;
 
-	if (vfPath.size() >= ffieldPostfix.size() && vfPath.compare(vfPath.size() - ffieldPostfix.size(), ffieldPostfix.size(), ffieldPostfix) == 0){//check if this is a vector field file
-		mCalcFramesFromVecField = true;
-		res = Parser::loadVectorField(vfPath.c_str(), mCgalMesh);
-		if (!res) return false;
-	}
-	else if (vfPath.size() >= matPostfix.size() && vfPath.compare(vfPath.size() - matPostfix.size(), matPostfix.size(), matPostfix) == 0){//check if this is a mat file with frames
-		mCalcFramesFromVecField = false;
-		const char *temp = vfPath.c_str();
-		MatlabInterface::GetEngine().SetEngineStringArray("FastHGP.matLocation", 1, &temp);
-	}
-	else{
-		if (mMeshBuffer.cones.size() > 0){
+		if (vfPath.size() >= ffieldPostfix.size() && vfPath.compare(vfPath.size() - ffieldPostfix.size(), ffieldPostfix.size(), ffieldPostfix) == 0) {//check if this is a vector field file
+			mCalcFramesFromVecField = true;
+			hasFrames = Parser::loadVectorField(vfPath.c_str(), mCgalMesh);
+		}
+		else if (vfPath.size() >= matPostfix.size() && vfPath.compare(vfPath.size() - matPostfix.size(), matPostfix.size(), matPostfix) == 0) {//check if this is a mat file with frames
+			mCalcFramesFromVecField = false;
+			const char *temp = vfPath.c_str();
+			MatlabInterface::GetEngine().SetEngineStringArray("FastHGP.matLocation", 1, &temp);
+			hasFrames = true;
+		}
+		if (!hasFrames) {
 			cout << "ffiled or frames are not provided, ignoring the cones... " << endl;
 			mMeshBuffer.cones.clear();
+			mHasCones = false;
 		}
-		mHasCones = false;
-	}
-
-	if (mHasCones && mMeshBuffer.cones.size() == 0){
-		cout << "ffiled or frames are provided, but model has no cones, ignoring the provided file... " << endl;
-		mHasCones = false;
-	}
-
-	if (mHasCones){
-		// -----update cones and seam-------
-		Parser::setMeshAdditionalData(mCgalMesh, mMeshBuffer);
+		else {
+			// -----update cones and seam-------
+			Parser::setMeshAdditionalData(mCgalMesh, mMeshBuffer);
+		}
 	}
 
 	return true;

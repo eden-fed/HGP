@@ -1,0 +1,24 @@
+#This helps control Git treatment of lines ending: CR LF (Windows), LF (Unix) and CR (Macintosh).
+#See https://help.github.com/articles/dealing-with-line-endings/
+#One option is to set core.autocrlf by using "git config --global core.autocrlf true" but this has to be set by evrey user that works on the repo
+#The alternative is to use this .gitattributes  file which overides the behavior of git for this repository.
+
+#Auto detect text files and perform line ending normalization
+* text=auto
+
+#Explicitly declare text files you want to always be normalized and converted to native line endings on checkout
+*.cpp text
+*.c text
+*.h text
+*.cu text
+*.txt text
+
+#Declare files that will always have CRLF (Windows style) line endings on checkout
+*.sln text eol=crlf
+
+#Declare files that will always have LF (Unix style) line endings on checkout
+*.mel text eol=lf
+
+
+#Denote all files that are truly binary and should not be modified
+*.jpg binary

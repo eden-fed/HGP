@@ -7,11 +7,11 @@ function [ FastHGP ] = ATPForInitialValue( FastHGP )
     J=[FastHGP.J_fz;FastHGP.J_fbz];
     JWithOnes=[J;ones(1,numCones)];% add one constraint to J matrix to fix translation : the avarage of all the cones iz zero
 
-    %Use weighted least squares instead of least squares to account for the areas of triangles
-    W=diag([FastHGP.Area;FastHGP.Area;mean(FastHGP.Area)]); %weights - areas of triangles
-    W_small=diag([FastHGP.Area;FastHGP.Area]);
-    MInv=inv(JWithOnes'*W*JWithOnes); %inverse of weighted J'*J
-    weightedPinvJ=MInv*JWithOnes'*W; %weighted least squares
+    %Use weighted least squares instead of least squares to account for the areas of triangles  
+    W_small=[FastHGP.Area;FastHGP.Area]';
+    W=[W_small, mean(FastHGP.Area)];
+    MInv=inv((JWithOnes'.*W)*JWithOnes); %inverse of weighted J'*J
+    weightedPinvJ=(MInv*JWithOnes').*W; %weighted least squares
     
     % ***** statring point *****
     start_fz=1./FastHGP.frames;
@@ -43,7 +43,7 @@ function [ FastHGP ] = ATPForInitialValue( FastHGP )
 
         %%%check convegrence%%%
         ni=a_l-b_l;
-        norm_ni_sqr=ni'*W_small*ni;
+        norm_ni_sqr=(ni'.*W_small)*ni;
         if(sqrt(norm_ni_sqr)<tol)%stop condition 
             break;
         end
